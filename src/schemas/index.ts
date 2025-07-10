@@ -14,3 +14,12 @@ export const RegisterSchema = z.object({
   message: "The password doesn't match",
   path: ["password_confirmation"]
 })
+
+export const SuccessSchema = z.string()
+export const ErrorResponseSchema = z.object({
+  error: z.string()
+})
+
+export const TokenSchema = z.string({message: "Invalid token"})
+                            .length(6, {message: "Invalid token"})
+                            .max(6, {message: "Invalid token"})
