@@ -17,9 +17,17 @@ export const RegisterSchema = z.object({
 
 export const SuccessSchema = z.string()
 export const ErrorResponseSchema = z.object({
-  error: z.string()
+  message: z.string()
 })
 
 export const TokenSchema = z.string({message: "Invalid token"})
                             .length(6, {message: "Invalid token"})
                             .max(6, {message: "Invalid token"})
+
+export const LoginSchema = z.object({
+  email: z.string()
+          .min(1, {message: "Email is required"})
+          .email({message: "Invalid email"}),
+  password: z.string()
+             .min(1, {message: "Password cannot be empty"})
+})

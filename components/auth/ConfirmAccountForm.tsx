@@ -1,16 +1,15 @@
 "use client"
 
-import { confirmAccount } from "@/actions/confirm-account-action"
-import { PinInput, PinInputField } from "@chakra-ui/pin-input"
-import { error } from "console"
-
 import { useEffect, useState } from "react"
 import { useFormState } from "react-dom"
-import ErrorMessage from "../ui/ErrorMessage"
-import SuccessMessage from "../ui/SuccessMessage"
-import { success } from "zod/v4"
+import { useRouter } from "next/navigation"
+import { toast } from "react-toastify"
+import { PinInput, PinInputField } from "@chakra-ui/pin-input"
+import { confirmAccount } from "@/actions/confirm-account-action"
+
 
 export default function ConfirmAccountForm() {
+  const router = useRouter()
   const [isComplete, setIsComplete] = useState(false)
   const [token, setToken] = useState("")
 
@@ -26,7 +25,24 @@ export default function ConfirmAccountForm() {
     }
   }, [isComplete]);
 
+  useEffect(() => {
+    if(state.errors) {
+      state.errors.forEach(error => {
+        toast.error(error)
+      })
+    }
+
+    if(state.success) {
+      toast.success(state.success, {
+        onClose: () => {
+          router.push("/auth/login")
+        }
+      })
+    }
+  }, [state])
+
   const handleChange = (token: string) => {
+    setIsComplete(false)
     setToken(token)
   }
 

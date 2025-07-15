@@ -1,4 +1,5 @@
 import Logo from "@/components/ui/Logo"
+import ToastNotification from "@/components/ui/ToastNotification"
 import React from "react"
 
 
@@ -21,6 +22,7 @@ export default function AuthLayout({
           </div>
         </div>
       </div>
+      <ToastNotification />
     </>
   )
 }

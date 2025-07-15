@@ -44,9 +44,9 @@ export async function register( preveState: ActionStateType, formData: FormData 
   const json = await req.json()
 
   if(req.status === 409) {
-    const {error} = ErrorResponseSchema.parse(json)
+    const {message} = ErrorResponseSchema.parse(json)
     return {
-      errors: [error],
+      errors: [message],
       success: ""
     }
   }
