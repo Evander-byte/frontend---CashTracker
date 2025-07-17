@@ -1,6 +1,7 @@
 import { z } from "zod"
-import { email } from "zod/v4"
 
+
+//Validation fields
 export const RegisterSchema = z.object({
   email: z.string()
           .min(1, {message: "Email is required"})
@@ -15,11 +16,6 @@ export const RegisterSchema = z.object({
   path: ["password_confirmation"]
 })
 
-export const SuccessSchema = z.string()
-export const ErrorResponseSchema = z.object({
-  message: z.string()
-})
-
 export const TokenSchema = z.string({message: "Invalid token"})
                             .length(6, {message: "Invalid token"})
                             .max(6, {message: "Invalid token"})
@@ -31,3 +27,18 @@ export const LoginSchema = z.object({
   password: z.string()
              .min(1, {message: "Password cannot be empty"})
 })
+
+
+//Validation responses
+export const SuccessSchema = z.string()
+export const ErrorResponseSchema = z.object({
+  message: z.string()
+})
+
+export const UserSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  email: z.string().email()
+})
+
+export type User = z.infer<typeof UserSchema>

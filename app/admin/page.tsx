@@ -1,7 +1,7 @@
 import Link from "next/link";
 
+export default async function AdminPage() {
 
-export default function AdminPage() {
   return (
     <>
       <div className="flex flex-col-reverse md:flex-row md:justify-between items-center">

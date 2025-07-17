@@ -47,7 +47,7 @@ export async function authenticate(prevState: ActionStateType, formData: FormDat
   //Setting cookies
   cookies().set({
     name: "CASHTRACKR_TOKEN",
-    value: json,
+    value: json.access_token,
     httpOnly: true,
     path: "/"
   })
