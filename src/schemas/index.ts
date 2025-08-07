@@ -28,6 +28,21 @@ export const LoginSchema = z.object({
              .min(1, {message: "Password cannot be empty"})
 })
 
+export const ForgotPasswordSchema = z.object({
+  email: z.string()
+          .min(1, {message: "Email is required"})
+          .email({message: "Invalid email"})
+})
+
+export const ResetPasswordSchema = z.object({
+  password: z.string()
+              .min(8, {message: "The password is too short , it must have at least eight characters"}),
+  password_confirmation: z.string()
+}).refine((data) => data.password === data.password_confirmation, {
+  message: "Password no match",
+  path: ["password_confirmation"]
+})
+
 
 //Validation responses
 export const SuccessSchema = z.string()

@@ -1,15 +1,14 @@
 "use server"
 
 import { ErrorResponseSchema, SuccessSchema, TokenSchema } from "@/src/schemas"
-import { success } from "zod/v4"
 
-
-type ActionStateType = {
+type ActionsStateType = {
   errors: string[],
   success: string
 }
 
-export async function confirmAccount(token: string, prevState: ActionStateType) {
+export async function validateToken(token: string, prevState: ActionsStateType)
+{
 
   const confirmToken = TokenSchema.safeParse(token)
   if(!confirmToken.success) {
@@ -20,7 +19,7 @@ export async function confirmAccount(token: string, prevState: ActionStateType) 
   }
 
   //Confirm token
-  const url = `${process.env.API_URL}/auth/confirm-account`
+  const url = `${process.env.API_URL}/auth/validate-token`
   const req = await fetch(url, {
     method: "POST",
     headers: {
@@ -32,8 +31,8 @@ export async function confirmAccount(token: string, prevState: ActionStateType) 
   })
 
   const json = await req.json()
-  if(!req.ok){
-    const {message} = ErrorResponseSchema.parse(json)
+  if(!req.ok) {
+    const { message } = ErrorResponseSchema.parse(json)
     return {
       errors: [message],
       success: ""
@@ -41,7 +40,6 @@ export async function confirmAccount(token: string, prevState: ActionStateType) 
   }
 
   const success = SuccessSchema.parse(json)
-
   return {
     errors: [],
     success
