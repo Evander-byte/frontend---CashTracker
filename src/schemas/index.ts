@@ -8,12 +8,10 @@ export const RegisterSchema = z
       .min(1, { message: "Email is required" })
       .email({ message: "Invalid email" }),
     name: z.string().min(1, { message: "Your name is required" }),
-    password: z
-      .string()
-      .min(8, {
-        message:
-          "The password is too short, it must have at least eight characters",
-      }),
+    password: z.string().min(8, {
+      message:
+        "The password is too short, it must have at least eight characters",
+    }),
     password_confirmation: z.string(),
   })
   .refine((data) => data.password === data.password_confirmation, {
@@ -43,12 +41,10 @@ export const ForgotPasswordSchema = z.object({
 
 export const ResetPasswordSchema = z
   .object({
-    password: z
-      .string()
-      .min(8, {
-        message:
-          "The password is too short , it must have at least eight characters",
-      }),
+    password: z.string().min(8, {
+      message:
+        "The password is too short , it must have at least eight characters",
+    }),
     password_confirmation: z.string(),
   })
   .refine((data) => data.password === data.password_confirmation, {
@@ -75,4 +71,16 @@ export const UserSchema = z.object({
   email: z.string().email(),
 });
 
+export const BudgetAPIResponseSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  amount: z.string(),
+  userId: z.number(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+export const BudgetsAPIResponseSchema = z.array(BudgetAPIResponseSchema);
+
 export type User = z.infer<typeof UserSchema>;
+export type Budget = z.infer<typeof BudgetAPIResponseSchema>;
