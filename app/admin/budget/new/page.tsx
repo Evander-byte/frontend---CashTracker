@@ -1,30 +1,29 @@
+import CreateBudgetForm from "@/components/budgets/CreateBudgetForm";
 import Link from "next/link";
-import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "CashTracker - Admin dashboard",
-  description: "CashTracker - Admin dashboard",
-};
-
-export default async function AdminPage() {
+export default function CraeteBudgetPage() {
   return (
     <>
       <div className="flex flex-col-reverse md:flex-row md:justify-between items-center">
-        <div className="w-full md:w-auto">
+        <div className="w-full md:wauto">
           <h1 className="font-black text-4xl text-purple-950 my-5">
-            My Budgets
+            New Budget
           </h1>
           <p className="text-xl font-bold">
-            Manage and administers your {""}
-            <span className="text-amber-500">budgets</span>
+            Complete the form and crate a new {""}
+            <span className="text-amber-500">budget</span>
           </p>
         </div>
         <Link
-          href={"/admin/budget/new"}
+          href={"/admin"}
           className="bg-amber-500 p-2 rounded-lg text-white font-bold w-full md:w-auto text-center"
         >
-          Create a budget
+          Back
         </Link>
+      </div>
+
+      <div className="p-10 mt-10 shadow-lg border">
+        <CreateBudgetForm />
       </div>
     </>
   );
