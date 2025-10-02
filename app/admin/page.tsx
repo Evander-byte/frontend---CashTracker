@@ -42,7 +42,7 @@ export default async function AdminPage() {
         </div>
         {budgets.length ? (
           <Link
-            href={"/admin/budget/new"}
+            href={"/admin/budgets/new"}
             className="bg-amber-500 p-2 rounded-lg text-white font-bold w-full md:w-auto text-center"
           >
             Create a new budget
@@ -57,7 +57,7 @@ export default async function AdminPage() {
                 <div className="minw0 flex-auto space-y-2">
                   <p className="textsm font-semibold leading-6 text-gray-900">
                     <Link
-                      href={`/admin/budget/${budget.id}`}
+                      href={`/admin/budgets/${budget.id}`}
                       className="cursor-pointer hover:underline text-2xl font-bold"
                     >
                       {budget.name}
