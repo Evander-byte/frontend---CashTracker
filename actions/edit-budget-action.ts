@@ -1,9 +1,8 @@
 "use server";
 
-import EditBudgetForm from "@/components/budgets/EditBudgetForm";
 import getToken from "@/src/auth/token";
 import { Budget, EditBudgetSchema, SuccessSchema } from "@/src/schemas";
-import { success } from "zod/v4";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 type ActionStateType = {
   errors: string[];
@@ -44,6 +43,12 @@ export async function editBudget(
 
   const json = await req.json();
   const success = SuccessSchema.parse(json);
+
+  //Revalidate the url after a mutation
+  revalidatePath("/admin");
+
+  //Revalidate only especific queries with the tag
+  // revalidateTag("/all-budgets");
 
   return {
     errors: [],
