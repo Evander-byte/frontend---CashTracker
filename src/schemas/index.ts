@@ -59,6 +59,10 @@ export const DraftBudgetSchema = z.object({
     .min(1, { message: "Invalid amount" }),
 });
 
+export const PasswordValidateSchema = z.string().min(8, {
+  message: "Invalid password",
+});
+
 export const EditBudgetSchema = z.object({
   name: z.string().min(1, { message: "Budget's name is required" }),
   amount: z.coerce
