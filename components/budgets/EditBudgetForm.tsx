@@ -3,7 +3,7 @@
 import { Budget } from "@/src/schemas";
 import BudgetForm from "./BudgetForm";
 import { useFormState } from "react-dom";
-import { editBudget } from "@/actions/edit-budget-action";
+import { editBudget } from "@/actions/budget/edit-budget-action";
 import ErrorMessage from "../ui/ErrorMessage";
 import { useEffect } from "react";
 import { toast } from "react-toastify";

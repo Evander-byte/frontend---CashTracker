@@ -70,6 +70,13 @@ export const EditBudgetSchema = z.object({
     .min(1, { message: "Invalid amount" }),
 });
 
+export const DraftExpenseSchema = z.object({
+  name: z.string().min(1, { message: "Expense's name is requiiered" }),
+  amount: z.coerce
+    .number({ message: "Invalid amount" })
+    .min(1, { message: "Invalid amount" }),
+});
+
 //Validation responses
 export const SuccessSchema = z.string();
 export const ErrorResponseSchema = z.object({

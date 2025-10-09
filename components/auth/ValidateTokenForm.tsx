@@ -1,61 +1,61 @@
-"use client"
+"use client";
 
-import { validateToken } from '@/actions/validate-token-action'
-import { PinInput, PinInputField } from '@chakra-ui/pin-input'
-import { useRouter } from 'next/router'
-import React, { Dispatch, useEffect, useState } from 'react'
-import { useFormState } from 'react-dom'
-import { toast } from 'react-toastify'
+import { validateToken } from "@/actions/auth/validate-token-action";
+import { PinInput, PinInputField } from "@chakra-ui/pin-input";
+import { useRouter } from "next/router";
+import React, { Dispatch, useEffect, useState } from "react";
+import { useFormState } from "react-dom";
+import { toast } from "react-toastify";
 
 type ValidateTokenFormProps = {
-  token: string
-  setToken: Dispatch<React.SetStateAction<string>>
-  setIsValidToken: Dispatch<React.SetStateAction<boolean>>
-}
+  token: string;
+  setToken: Dispatch<React.SetStateAction<string>>;
+  setIsValidToken: Dispatch<React.SetStateAction<boolean>>;
+};
 
-export default function ValidateTokenForm({token, setToken, setIsValidToken}: ValidateTokenFormProps) {
-  const [isComplete, setIsComplete] = useState(false)
+export default function ValidateTokenForm({
+  token,
+  setToken,
+  setIsValidToken,
+}: ValidateTokenFormProps) {
+  const [isComplete, setIsComplete] = useState(false);
 
-  const validateTokenInput = validateToken.bind(null, token)
+  const validateTokenInput = validateToken.bind(null, token);
   const [state, dispatch] = useFormState(validateTokenInput, {
     errors: [],
-    success: ""
-  })
+    success: "",
+  });
 
   useEffect(() => {
-    if(isComplete) {
-      dispatch()
+    if (isComplete) {
+      dispatch();
     }
-  }, [isComplete])
+  }, [isComplete]);
 
   useEffect(() => {
-    if(state.errors) {
-      state.errors.forEach(error => {
-        toast.error(error)
-      })
+    if (state.errors) {
+      state.errors.forEach((error) => {
+        toast.error(error);
+      });
     }
-    if(state.success) {
-      toast.success(state.success)
-      setIsValidToken(true)
+    if (state.success) {
+      toast.success(state.success);
+      setIsValidToken(true);
     }
-  }, [state])
+  }, [state]);
 
   const handleChange = (token: string) => {
-    setIsComplete(false)
-    setToken(token)
-  }
+    setIsComplete(false);
+    setToken(token);
+  };
 
   const onComplete = () => {
-    setIsComplete(true)
-  }
+    setIsComplete(true);
+  };
   return (
     <>
       <div className="flex justify-center gap-5 my-10">
-        <PinInput
-          value={token}
-          onChange={handleChange}
-          onComplete={onComplete}
-        >
+        <PinInput value={token} onChange={handleChange} onComplete={onComplete}>
           <PinInputField className="h-10 w-10 text-center border border-gray-300 shadow rounded-lg placeholder-white" />
           <PinInputField className="h-10 w-10 text-center border border-gray-300 shadow rounded-lg placeholder-white" />
           <PinInputField className="h-10 w-10 text-center border border-gray-300 shadow rounded-lg placeholder-white" />
@@ -65,5 +65,5 @@ export default function ValidateTokenForm({token, setToken, setIsValidToken}: Va
         </PinInput>
       </div>
     </>
-  )
+  );
 }

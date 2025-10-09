@@ -1,7 +1,7 @@
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { DialogTitle } from "@headlessui/react";
 import { useFormState } from "react-dom";
-import { deleteBudget } from "@/actions/delete-budget-action";
+import { deleteBudget } from "@/actions/budget/delete-budget-action";
 import ErrorMessage from "../ui/ErrorMessage";
 import { useEffect } from "react";
 import { toast } from "react-toastify";

@@ -1,6 +1,6 @@
 "use client";
 
-import { createBudget } from "@/actions/create-budget-action";
+import { createBudget } from "@/actions/budget/create-budget-action";
 import { useFormState } from "react-dom";
 import ErrorMessage from "../ui/ErrorMessage";
 import { useEffect } from "react";
