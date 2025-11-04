@@ -3,6 +3,9 @@ import ModalContainer from "@/components/ui/ModalContainer";
 import { Budget } from "@/src/schemas";
 import { getBudgetById } from "@/src/services/budget";
 import { Metadata } from "next";
+import { budgets } from "../../../../../backend/src/__test__/mocks/budgets";
+import { formatCurrency, formatDate } from "@/src/utils";
+import ExpenseMenu from "@/components/expenses/ExpenseMenu";
 
 export async function generateMetadata({
   params,
@@ -33,6 +36,42 @@ export default async function BudgetDetailsPage({
         </div>
         <AddExpenseButton />
       </div>
+      {budget.expenses.length ? (
+        <>
+          <h1 className="font-black text-4xl text-purple-950 mt-10">
+            Budget's expenses
+          </h1>
+          <ul
+            role="list"
+            className="divide-y divide-gray-300 border shadow-lg mt-10 "
+          >
+            {budget.expenses.map((expense) => (
+              <li key={expense.id} className="flex justify-between gap-x-6 p-5">
+                <div className="flex min-w-0 gap-x-4">
+                  <div className="min-w-0 flex-auto space-y-2">
+                    <p className="text-2xl font-semibold text-gray-900">
+                      {expense.name}
+                    </p>
+                    <p className="text-xl font-bold text-amber-500">
+                      {formatCurrency(+expense.amount)}
+                    </p>
+                    <p className="text-gray-500  text-sm">
+                      Recorded: {""}
+                      <span className="font-bold">
+                        {" "}
+                        {formatDate(expense.createdAt)}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <ExpenseMenu expenseId={expense.id} />
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <p className="text-center py-2 mt-10">There are no expenses yet</p>
+      )}
       <ModalContainer />
     </>
   );

@@ -67,7 +67,7 @@ export async function deleteBudget(
 
   const deletedJson = await deleteRequest.json();
 
-  const success = SuccessSchema.parse(json);
+  const success = SuccessSchema.parse(deletedJson);
 
   //Revalidate data
   revalidatePath("/admin");

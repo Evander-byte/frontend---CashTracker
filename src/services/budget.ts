@@ -17,5 +17,5 @@ export const getBudgetById = cache(async (budgetId: string) => {
   }
 
   const budget = BudgetAPIResponseSchema.parse(json);
-  return json;
+  return budget;
 });
