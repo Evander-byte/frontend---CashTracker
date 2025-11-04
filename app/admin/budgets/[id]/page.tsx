@@ -6,6 +6,8 @@ import { Metadata } from "next";
 import { budgets } from "../../../../../backend/src/__test__/mocks/budgets";
 import { formatCurrency, formatDate } from "@/src/utils";
 import ExpenseMenu from "@/components/expenses/ExpenseMenu";
+import Amount from "@/components/ui/Amount";
+import ProgressBar from "@/components/budgets/ProgressBar";
 
 export async function generateMetadata({
   params,
@@ -25,6 +27,11 @@ export default async function BudgetDetailsPage({
   params: { id: string };
 }) {
   const budget = await getBudgetById(params.id);
+  const totalSpent = budget.expenses.reduce(
+    (total, expense) => +expense.amount + total,
+    0
+  );
+  const totalAvilable = +budget.amount - totalSpent;
   return (
     <>
       <div className="flex justify-between items-center">
@@ -38,6 +45,19 @@ export default async function BudgetDetailsPage({
       </div>
       {budget.expenses.length ? (
         <>
+          <div className="grid grid-cols-1 md:grid-cols-2 mt-10">
+            <div className="">
+              <ProgressBar
+                budgetAmount={+budget.amount}
+                totalSpent={totalSpent}
+              />
+            </div>
+            <div className="flex flex-col justify-center items-center md:items-start gap-5">
+              <Amount label="Planned budget" amount={+budget.amount} />
+              <Amount label="Available" amount={totalAvilable} />
+              <Amount label="Spent" amount={totalSpent} />
+            </div>
+          </div>
           <h1 className="font-black text-4xl text-purple-950 mt-10">
             Budget's expenses
           </h1>
