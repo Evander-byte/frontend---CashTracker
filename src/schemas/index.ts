@@ -77,6 +77,23 @@ export const DraftExpenseSchema = z.object({
     .min(1, { message: "Invalid amount" }),
 });
 
+export const UpdatePasswordSchema = z
+  .object({
+    current_password: z
+      .string()
+      .min(1, { message: "El Password no puede ir vacio" }),
+    password: z
+      .string()
+      .min(8, {
+        message: "El Nuevo Password debe ser de al menos 8 caracteres",
+      }),
+    password_confirmation: z.string(),
+  })
+  .refine((data) => data.password === data.password_confirmation, {
+    message: "Los Passwords no son iguales",
+    path: ["password_confirmation"],
+  });
+
 //Validation responses
 export const SuccessSchema = z.string();
 export const ErrorResponseSchema = z.object({
